@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estatísticas da Sorte</title>
+  <title>Análises Estatísticas - Loterias</title>
   <style>
     /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
     body {
-      background-color: #f5fff5;
+      background: #f0fdf4;
       color: #033d1e;
     }
 
+    /* Header fixo */
     header {
-      background: linear-gradient(90deg, #1b5e20, #2e7d32);
+      background: linear-gradient(90deg, #1b5e20, #1565c0);
       color: white;
-      padding: 15px 40px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -31,7 +32,7 @@
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
     nav ul {
@@ -48,26 +49,64 @@
     }
 
     nav a:hover {
-      color: #a5d6a7;
+      color: #b3e5fc;
     }
 
+    /* Menu responsivo */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #1b5e20;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Hero */
     .hero {
-      background: linear-gradient(to right, #a5d6a7, #c8e6c9);
+      background: linear-gradient(to right, #a5d6a7, #90caf9);
       padding: 60px 20px;
       text-align: center;
     }
 
     .hero h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 15px;
-      color: #1b5e20;
+      color: #0d47a1;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      color: #2e7d32;
+      font-size: 1.1rem;
+      color: #1b5e20;
     }
 
+    /* Cards */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -89,9 +128,10 @@
 
     .card h3 {
       margin-bottom: 10px;
-      color: #1b5e20;
+      color: #1565c0;
     }
 
+    /* Gráfico */
     .grafico {
       margin: 40px;
       padding: 20px;
@@ -101,64 +141,76 @@
       text-align: center;
     }
 
+    /* Footer */
     footer {
-      background: #1b5e20;
+      background: #1565c0;
       color: white;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
     }
-
   </style>
 </head>
 <body>
   <header>
-    <h1>Estatísticas da Sorte</h1>
+    <h1>Estatísticas das Loterias</h1>
     <nav>
-      <ul>
-        <li><a href="#">Início</a></li>
-        <li><a href="#">Mais Sorteados</a></li>
-        <li><a href="#">Menos Sorteados</a></li>
-        <li><a href="#">Pares/Ímpares</a></li>
-        <li><a href="#">Sobre</a></li>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul id="menu">
+        <li><a href="#">Lotofácil</a></li>
+        <li><a href="#">Quina</a></li>
+        <li><a href="#">Mega-Sena</a></li>
+        <li><a href="#">+Milionário</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Descubra os padrões da sorte</h2>
-    <p>Análises estatísticas das principais loterias do Brasil em tempo real</p>
+    <h2>Descubra os padrões dos números da sorte</h2>
+    <p>Análises estatísticas completas das principais loterias do Brasil</p>
   </section>
 
   <section class="cards">
     <div class="card">
-      <h3>Mais sorteados</h3>
-      <p>Top números que mais saem na loteria</p>
+      <h3>Mais Sorteados</h3>
+      <p>Confira os números que mais aparecem.</p>
     </div>
     <div class="card">
-      <h3>Menos sorteados</h3>
-      <p>Os números esquecidos pela sorte</p>
+      <h3>Menos Sorteados</h3>
+      <p>Acompanhe os números raros.</p>
     </div>
     <div class="card">
       <h3>Pares e Ímpares</h3>
-      <p>Distribuição estatística equilibrada</p>
+      <p>Veja como os números se equilibram.</p>
     </div>
     <div class="card">
       <h3>Sequências e Repetições</h3>
-      <p>Análise de padrões recorrentes</p>
+      <p>Identifique padrões escondidos.</p>
     </div>
   </section>
 
   <section class="grafico">
-    <h3>Gráfico dos Números</h3>
+    <h3>Distribuição dos Números</h3>
     <canvas id="chart" width="400" height="200"></canvas>
   </section>
 
   <footer>
-    <p>&copy; 2025 Estatísticas da Sorte | Todos os direitos reservados</p>
+    <p>&copy; 2025 Estatísticas das Loterias | Todos os direitos reservados</p>
   </footer>
 
-  <!-- Script para futuro gráfico -->
+  <!-- Script para menu responsivo -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  </script>
+
+  <!-- Script para gráfico -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const ctx = document.getElementById('chart').getContext('2d');
@@ -169,7 +221,7 @@
         datasets: [{
           label: 'Quantidade de vezes sorteado',
           data: [10, 15, 7, 20, 13, 18],
-          backgroundColor: '#66bb6a'
+          backgroundColor: ['#66bb6a', '#42a5f5', '#81c784', '#64b5f6', '#388e3c', '#1976d2']
         }]
       },
       options: {
