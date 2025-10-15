@@ -1,52 +1,82 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Lotofácil - Estatísticas</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- MENU -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="megasena.html">Mega-Sena</a></li>
-            <li><a href="lotofacil.html">Lotofácil</a></li>
-        </ul>
-    </nav>
+import { useState } from "react";
 
-    <div class="container">
-        <h1>Estatísticas - Lotofácil</h1>
+export default function LotoFacilSPA() {
+  const [combination, setCombination] = useState("");
 
-        <!-- CARDS DESTAQUE -->
-        <div class="cards">
-            <div class="card">
-                <h2>Mais sorteado</h2>
-                <p><strong>10</strong> (120 vezes)</p>
+  return (
+    <div className="min-h-screen bg-black text-white flex flex-col items-center p-6 space-y-10">
+      <h1 className="text-3xl font-bold tracking-wide">Análises Estatísticas - Lotofácil</h1>
+
+      {/* Tabelas de números */}
+      <section className="w-full max-w-5xl space-y-8">
+        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Números Sorteados</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[1, 2, 3].map((tbl) => (
+            <div
+              key={tbl}
+              className="bg-gray-900 rounded-2xl shadow p-4 overflow-x-auto"
+            >
+              <h3 className="text-lg font-medium mb-3">Tabela {tbl}</h3>
+              <table className="w-full border-collapse text-center">
+                <thead>
+                  <tr className="bg-gray-800">
+                    <th className="p-2 border border-gray-700">Número</th>
+                    <th className="p-2 border border-gray-700">Qtd Sorteios</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...Array(10)].map((_, i) => (
+                    <tr key={i} className="hover:bg-gray-800">
+                      <td className="border border-gray-700 p-2">{i + 1}</td>
+                      <td className="border border-gray-700 p-2">{Math.floor(Math.random() * 500)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div class="card">
-                <h2>Combinação mais comum</h2>
-                <p><strong>7 pares e 8 ímpares</strong></p>
-            </div>
-            <div class="card">
-                <h2>Mais atrasado</h2>
-                <p><strong>22</strong> (não sai há 15 concursos)</p>
-            </div>
+          ))}
         </div>
+      </section>
 
-        <!-- TABELA -->
-        <h2>Todos os números sorteados</h2>
-        <table border="1" cellpadding="10" style="margin: auto; border-collapse: collapse;">
-            <tr>
-                <th>Número</th>
-                <th>Qtd de vezes sorteado</th>
-            </tr>
-            <tr><td>10</td><td>120</td></tr>
-            <tr><td>17</td><td>115</td></tr>
-            <tr><td>03</td><td>110</td></tr>
-            <tr><td>25</td><td>108</td></tr>
-            <tr><td>13</td><td>105</td></tr>
-        </table>
+      {/* Estruturas de combinações */}
+      <section className="w-full max-w-4xl space-y-6">
+        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Estruturas de Combinações</h2>
+        <div className="bg-gray-900 rounded-2xl shadow p-4 overflow-x-auto">
+          <table className="w-full border-collapse text-center">
+            <thead>
+              <tr className="bg-gray-800">
+                <th className="p-2 border border-gray-700">Estrutura</th>
+                <th className="p-2 border border-gray-700">Qtd Sorteada</th>
+              </tr>
+            </thead>
+            <tbody>
+              {["8P-7I", "9P-6I", "10P-5I"].map((estrutura, idx) => (
+                <tr key={idx} className="hover:bg-gray-800">
+                  <td className="border border-gray-700 p-2">{estrutura}</td>
+                  <td className="border border-gray-700 p-2">{Math.floor(Math.random() * 300)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Testar combinação */}
+      <section className="w-full max-w-3xl space-y-4">
+        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Teste sua Combinação</h2>
+        <div className="bg-gray-900 rounded-2xl shadow p-6 flex flex-col items-center gap-4">
+          <input
+            type="text"
+            placeholder="Digite sua combinação (ex: 1,5,10,12,23...)"
+            value={combination}
+            onChange={(e) => setCombination(e.target.value)}
+            className="w-full rounded-xl p-3 bg-black border border-gray-700 focus:ring-2 focus:ring-white outline-none"
+          />
+          <button className="px-6 py-2 bg-white text-black font-semibold rounded-xl shadow hover:bg-gray-200 transition">
+            Testar
+          </button>
+        </div>
+      </section>
     </div>
-</body>
-</html>
+  );
+}
