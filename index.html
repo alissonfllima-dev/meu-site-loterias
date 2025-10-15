@@ -1,82 +1,189 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análises Lotofácil</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
 
-export default function LotoFacilSPA() {
-  const [combination, setCombination] = useState("");
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-  return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center p-6 space-y-10">
-      <h1 className="text-3xl font-bold tracking-wide">Análises Estatísticas - Lotofácil</h1>
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
 
-      {/* Tabelas de números */}
-      <section className="w-full max-w-5xl space-y-8">
-        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Números Sorteados</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((tbl) => (
-            <div
-              key={tbl}
-              className="bg-gray-900 rounded-2xl shadow p-4 overflow-x-auto"
-            >
-              <h3 className="text-lg font-medium mb-3">Tabela {tbl}</h3>
-              <table className="w-full border-collapse text-center">
-                <thead>
-                  <tr className="bg-gray-800">
-                    <th className="p-2 border border-gray-700">Número</th>
-                    <th className="p-2 border border-gray-700">Qtd Sorteios</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[...Array(10)].map((_, i) => (
-                    <tr key={i} className="hover:bg-gray-800">
-                      <td className="border border-gray-700 p-2">{i + 1}</td>
-                      <td className="border border-gray-700 p-2">{Math.floor(Math.random() * 500)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
-      </section>
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
 
-      {/* Estruturas de combinações */}
-      <section className="w-full max-w-4xl space-y-6">
-        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Estruturas de Combinações</h2>
-        <div className="bg-gray-900 rounded-2xl shadow p-4 overflow-x-auto">
-          <table className="w-full border-collapse text-center">
-            <thead>
-              <tr className="bg-gray-800">
-                <th className="p-2 border border-gray-700">Estrutura</th>
-                <th className="p-2 border border-gray-700">Qtd Sorteada</th>
-              </tr>
-            </thead>
-            <tbody>
-              {["8P-7I", "9P-6I", "10P-5I"].map((estrutura, idx) => (
-                <tr key={idx} className="hover:bg-gray-800">
-                  <td className="border border-gray-700 p-2">{estrutura}</td>
-                  <td className="border border-gray-700 p-2">{Math.floor(Math.random() * 300)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
-      {/* Testar combinação */}
-      <section className="w-full max-w-3xl space-y-4">
-        <h2 className="text-xl font-semibold border-b border-gray-600 pb-2">Teste sua Combinação</h2>
-        <div className="bg-gray-900 rounded-2xl shadow p-6 flex flex-col items-center gap-4">
-          <input
-            type="text"
-            placeholder="Digite sua combinação (ex: 1,5,10,12,23...)"
-            value={combination}
-            onChange={(e) => setCombination(e.target.value)}
-            className="w-full rounded-xl p-3 bg-black border border-gray-700 focus:ring-2 focus:ring-white outline-none"
-          />
-          <button className="px-6 py-2 bg-white text-black font-semibold rounded-xl shadow hover:bg-gray-200 transition">
-            Testar
-          </button>
-        </div>
-      </section>
+    .card {
+      background: #111;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #333;
+      text-align: center;
+    }
+
+    th {
+      background: #222;
+    }
+
+    tr:hover {
+      background: #1a1a1a;
+    }
+
+    .input-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #000;
+      color: #fff;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #fff;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Análises Estatísticas - Lotofácil</h1>
+
+    <!-- Tabelas de números -->
+    <h2>Números Sorteados</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Tabela 1</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Qtd Sorteios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>350</td></tr>
+            <tr><td>2</td><td>420</td></tr>
+            <tr><td>3</td><td>390</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Tabela 2</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Qtd Sorteios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>10</td><td>410</td></tr>
+            <tr><td>11</td><td>360</td></tr>
+            <tr><td>12</td><td>405</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Tabela 3</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Qtd Sorteios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>20</td><td>395</td></tr>
+            <tr><td>21</td><td>375</td></tr>
+            <tr><td>22</td><td>415</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  );
-}
+
+    <!-- Estruturas de combinações -->
+    <h2 style="margin-top:40px;">Estruturas de Combinações</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Estrutura</th>
+            <th>Qtd Sorteada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>8P-7I</td><td>200</td></tr>
+          <tr><td>9P-6I</td><td>150</td></tr>
+          <tr><td>10P-5I</td><td>180</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Teste de combinação -->
+    <h2 style="margin-top:40px;">Teste sua Combinação</h2>
+    <div class="card">
+      <div class="input-box">
+        <input type="text" placeholder="Digite sua combinação (ex: 1,5,10,12,23...)" />
+        <button>Testar</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
