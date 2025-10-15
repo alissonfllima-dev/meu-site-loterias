@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Lotofácil - Estatísticas</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- MENU -->
@@ -18,13 +15,27 @@
         </ul>
     </nav>
 
-    <!-- CONTEÚDO -->
     <div class="container">
         <h1>Estatísticas - Lotofácil</h1>
 
-        <h2>Números mais sorteados</h2>
-        
+        <!-- CARDS DESTAQUE -->
+        <div class="cards">
+            <div class="card">
+                <h2>Mais sorteado</h2>
+                <p><strong>10</strong> (120 vezes)</p>
+            </div>
+            <div class="card">
+                <h2>Combinação mais comum</h2>
+                <p><strong>7 pares e 8 ímpares</strong></p>
+            </div>
+            <div class="card">
+                <h2>Mais atrasado</h2>
+                <p><strong>22</strong> (não sai há 15 concursos)</p>
+            </div>
+        </div>
+
         <!-- TABELA -->
+        <h2>Todos os números sorteados</h2>
         <table border="1" cellpadding="10" style="margin: auto; border-collapse: collapse;">
             <tr>
                 <th>Número</th>
@@ -36,36 +47,6 @@
             <tr><td>25</td><td>108</td></tr>
             <tr><td>13</td><td>105</td></tr>
         </table>
-
-        <h2>Visualização em gráfico</h2>
-        <canvas id="grafico"></canvas>
     </div>
-
-    <!-- SCRIPT DO GRÁFICO -->
-    <script>
-        const ctx = document.getElementById('grafico');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['10', '17', '03', '25', '13'],
-                datasets: [{
-                    label: 'Qtd de vezes sorteado',
-                    data: [120, 115, 110, 108, 105],
-                    borderWidth: 1,
-                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
-                    borderColor: '#2980b9'
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 </html>
