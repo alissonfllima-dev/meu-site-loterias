@@ -1,236 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análises Estatísticas - Loterias</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <title>Lotofácil - Estatísticas</title>
+    <link rel="stylesheet" href="style.css">
 
-    body {
-      background: #f0fdf4;
-      color: #033d1e;
-    }
-
-    /* Header fixo */
-    header {
-      background: linear-gradient(90deg, #1b5e20, #1565c0);
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header h1 {
-      font-size: 1.2rem;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #b3e5fc;
-    }
-
-    /* Menu responsivo */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      background: white;
-      height: 3px;
-      width: 25px;
-      margin: 4px;
-      border-radius: 3px;
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-        flex-direction: column;
-        background: #1b5e20;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 200px;
-        padding: 10px;
-      }
-
-      nav ul.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-    }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(to right, #a5d6a7, #90caf9);
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #0d47a1;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: #1b5e20;
-    }
-
-    /* Cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-      color: #1565c0;
-    }
-
-    /* Gráfico */
-    .grafico {
-      margin: 40px;
-      padding: 20px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    /* Footer */
-    footer {
-      background: #1565c0;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-  </style>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Estatísticas das Loterias</h1>
+    <!-- MENU -->
     <nav>
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span><span></span><span></span>
-      </div>
-      <ul id="menu">
-        <li><a href="#">Lotofácil</a></li>
-        <li><a href="#">Quina</a></li>
-        <li><a href="#">Mega-Sena</a></li>
-        <li><a href="#">+Milionário</a></li>
-      </ul>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="megasena.html">Mega-Sena</a></li>
+            <li><a href="lotofacil.html">Lotofácil</a></li>
+        </ul>
     </nav>
-  </header>
 
-  <section class="hero">
-    <h2>Descubra os padrões dos números da sorte</h2>
-    <p>Análises estatísticas completas das principais loterias do Brasil</p>
-  </section>
+    <!-- CONTEÚDO -->
+    <div class="container">
+        <h1>Estatísticas - Lotofácil</h1>
 
-  <section class="cards">
-    <div class="card">
-      <h3>Mais Sorteados</h3>
-      <p>Confira os números que mais aparecem.</p>
+        <h2>Números mais sorteados</h2>
+        
+        <!-- TABELA -->
+        <table border="1" cellpadding="10" style="margin: auto; border-collapse: collapse;">
+            <tr>
+                <th>Número</th>
+                <th>Qtd de vezes sorteado</th>
+            </tr>
+            <tr><td>10</td><td>120</td></tr>
+            <tr><td>17</td><td>115</td></tr>
+            <tr><td>03</td><td>110</td></tr>
+            <tr><td>25</td><td>108</td></tr>
+            <tr><td>13</td><td>105</td></tr>
+        </table>
+
+        <h2>Visualização em gráfico</h2>
+        <canvas id="grafico"></canvas>
     </div>
-    <div class="card">
-      <h3>Menos Sorteados</h3>
-      <p>Acompanhe os números raros.</p>
-    </div>
-    <div class="card">
-      <h3>Pares e Ímpares</h3>
-      <p>Veja como os números se equilibram.</p>
-    </div>
-    <div class="card">
-      <h3>Sequências e Repetições</h3>
-      <p>Identifique padrões escondidos.</p>
-    </div>
-  </section>
 
-  <section class="grafico">
-    <h3>Distribuição dos Números</h3>
-    <canvas id="chart" width="400" height="200"></canvas>
-  </section>
+    <!-- SCRIPT DO GRÁFICO -->
+    <script>
+        const ctx = document.getElementById('grafico');
 
-  <footer>
-    <p>&copy; 2025 Estatísticas das Loterias | Todos os direitos reservados</p>
-  </footer>
-
-  <!-- Script para menu responsivo -->
-  <script>
-    const toggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('menu');
-
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-    });
-  </script>
-
-  <!-- Script para gráfico -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const ctx = document.getElementById('chart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['01','02','03','04','05','06'],
-        datasets: [{
-          label: 'Quantidade de vezes sorteado',
-          data: [10, 15, 7, 20, 13, 18],
-          backgroundColor: ['#66bb6a', '#42a5f5', '#81c784', '#64b5f6', '#388e3c', '#1976d2']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
-        }
-      }
-    });
-  </script>
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['10', '17', '03', '25', '13'],
+                datasets: [{
+                    label: 'Qtd de vezes sorteado',
+                    data: [120, 115, 110, 108, 105],
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                    borderColor: '#2980b9'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
